@@ -12,15 +12,15 @@ from lerobot.robots.so100_follower.config_so100_follower import SO100FollowerCon
 from lerobot.robots.so100_follower.so100_follower import SO100Follower
 
 MAX_EPISODES = 1
-MAX_STEPS_PER_EPISODE = 10000
+MAX_STEPS_PER_EPISODE = 2500
 
 device = torch.device("mps")  # or "cuda" or "cpu"
 
 # Configuration for the three toy policies
 TOYS = [
-    {"name": "grey", "model_id": "path/to/grey-toy-model", "task": "pick up the grey toy"},
-    {"name": "purple", "model_id": "path/to/purple-toy-model", "task": "pick up the purple toy"},
-    {"name": "orange", "model_id": "path/to/orange-toy-model", "task": "pick up the orange toy"},
+    {"name": "grey", "model_id": "path/to/grey-toy-model", "task": "pick up the grey toy on the right side and place it on the left side"},
+    {"name": "purple", "model_id": "path/to/purple-toy-model", "task": "pick up the purple toy on the right side and place it on the left side"},
+    {"name": "orange", "model_id": "path/to/orange-toy-model", "task": "pick up the orange toy on the right side and place it on the left side"},
 ]
 
 # MediaPipe setup
@@ -248,7 +248,7 @@ def run_policy(robot, model, preprocess, postprocess, task, robot_type, dataset_
 def main():
     # Robot setup
     follower_port = "/dev/tty.usbmodem5AB01814981"
-    follower_id = "so100_right_follower"
+    follower_id = "so101_right_follower"
     
     camera_config = {
         "overhead": OpenCVCameraConfig(index_or_path=1, width=640, height=480, fps=30),
@@ -259,7 +259,7 @@ def main():
     robot = SO100Follower(robot_cfg)
     robot.connect()
     
-    robot_type = "so100_follower"
+    robot_type = "so101_follower"
     
     # Setup dataset features
     action_features = hw_to_dataset_features(robot.action_features, "action")
